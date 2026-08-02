@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Express and Mongoose Authentication Project",
   "main": "server.js",
+  "license": "MIT",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
