@@ -81,6 +81,11 @@ async function handleRegister(e) {
     }
   } catch (err) {
     let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+    const userExist = users.find(u => u.username === username);
+    if (userExist) {
+      showAlert('Username already registered', 'error');
+      return;
+    }
     users.push({ username, password });
     localStorage.setItem('registered_users', JSON.stringify(users));
     showAlert('Account created! Please sign in.', 'success');
@@ -127,7 +132,7 @@ async function handleLogin(e) {
   } catch (err) {
     let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
     const match = users.find(u => u.username === username && u.password === password);
-    if (match || (username === 'admin' && password === 'admin') || (username && password)) {
+    if (match || (username === 'admin' && password === 'admin')) {
       const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb2NrX3VzZXJfMTIzNDUiLCJpYXQiOjE3ODU2Nzc4NTcsImV4cCI6MTc4NTY4MTQ1N30.mock_signature';
       localStorage.setItem('token', mockToken);
       localStorage.setItem('currentUser', username);
